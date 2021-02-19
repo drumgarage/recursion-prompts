@@ -6,7 +6,7 @@
 // denoted by n!, is the product of all positive integers less than or equal to n.
 // Example: 5! = 5 x 4 x 3 x 2 x 1 = 120
 // factorial(5); // 120
-var factorial = function(n) {
+var factorial = function (n) {
   if (n === 0) {
     return 1;
   }
@@ -116,14 +116,39 @@ var exponent = function(base, exp) {
 // powerOfTwo(16); // true
 // powerOfTwo(10); // false
 var powerOfTwo = function(n) {
+  if (n < 1) {
+    return false;
+  }
+  if (n === 1) {
+    return true;
+  }
+  return powerOfTwo(n / 2);
+
 };
 
 // 9. Write a function that reverses a string.
 var reverse = function(string) {
+  if (string === "") {
+    return string;
+  }
+  return string[string.length -1] + reverse(string.slice(0, string.length -1));
 };
 
 // 10. Write a function that determines if a string is a palindrome.
 var palindrome = function(string) {
+
+  string = string.toUpperCase().split(" ").join("");
+  console.log(string);
+  if (!string) {
+    return false;
+  }
+  if (string.length === 1) {
+    return true;
+  }
+  if (string[0] !== string[string.length - 1]) {
+    return false;
+  }
+  return palindrome(string.slice(1, string.length - 1));
 };
 
 // 11. Write a function that returns the remainder of x divided by y without using the
