@@ -138,7 +138,6 @@ var reverse = function(string) {
 var palindrome = function(string) {
 
   string = string.toUpperCase().split(" ").join("");
-  console.log(string);
   if (!string) {
     return false;
   }
@@ -162,6 +161,22 @@ var modulo = function(x, y) {
 // 12. Write a function that multiplies two numbers without using the * operator or
 // Math methods.
 var multiply = function(x, y) {
+  if (x === 1 && y === 1) {
+    return 1;
+  }
+  if (x === 1 && y > 1) {
+    return y;
+  }
+  if (y === 1 && x > 1) {
+    return x;
+  }
+//  console.log('x and y:', x, y);
+ if (x > y) {
+   return multiply(x + x, y - 1);
+ }
+
+
+
 };
 
 // 13. Write a function that divides two numbers without using the / operator or
@@ -222,11 +237,14 @@ var rMap = function(array, callback) {
 // var obj = {'e':{'x':'y'},'t':{'r':{'e':'r'},'p':{'y':'r'}},'y':'e'};
 // countKeysInObj(obj, 'r') // 1
 // countKeysInObj(obj, 'e') // 2
-var countKeysInObj = function(obj, key) {
+var countKeysInObj = function(obj, target) {
   var count = 0;
-  for (var target in obj) {
-    if (obj[target] === key) {
-      count += 1;
+  if (typeof obj === 'object' && obj !== null) {
+    for (var key in obj) {
+      if (key === target) {
+        count += 1;
+      }
+      count += countKeysInObj(obj[key], target);
     }
   }
   return count;
@@ -236,7 +254,17 @@ var countKeysInObj = function(obj, key) {
 // var obj = {'e':{'x':'y'},'t':{'r':{'e':'r'},'p':{'y':'r'}},'y':'e'};
 // countValuesInObj(obj, 'r') // 2
 // countValuesInObj(obj, 'e') // 1
-var countValuesInObj = function(obj, value) {
+var countValuesInObj = function(obj, target) {
+  var count = 0;
+  if (typeof obj === 'object' && obj !== null) {
+    for (var key in obj) {
+      if (obj[key] === target) {
+        count += 1;
+      }
+      count += countValuesInObj(obj[key], target)
+    }
+  }
+  return count;
 };
 
 // 24. Find all keys in an object (and nested objects) by a provided name and rename
